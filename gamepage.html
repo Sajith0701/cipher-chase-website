@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Blurred Background */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url(image/digital-art-old-map-with-terrain-locations\ \(1\).jpg) no-repeat center center/cover;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .mascot-container {
+            position: absolute;
+            width: 450px; /* Increased mascot size */
+            height: 450px;
+            transform: scale(1.5); /* Bigger size */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .mascot {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Adjusted left-bottom placement */
+        .left-bottom {
+            left: 8%;
+            bottom: 2%;
+        }
+
+        /* Special positioning for 11th and 14th mascots */
+        .center {
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .next-btn {
+            position: absolute;
+            right: 5%;
+            bottom: 5%;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="background"></div> <!-- Blurred Background -->
+
+    <div id="mascotContainer" class="mascot-container left-bottom">
+        <img id="mascot" class="mascot" src="" alt="Mascot">
+    </div>
+
+    <img id="nextButton" class="next-btn" src="image/start img.png" alt="Next" onclick="nextPage()">
+
+    <script>
+        let currentImage = 1;
+        const totalImages = 14;
+        const mascot = document.getElementById('mascot');
+        const mascotContainer = document.getElementById('mascotContainer');
+        const nextButton = document.getElementById('nextButton');
+
+        function showNextImage() {
+            if (currentImage <= totalImages) {
+                mascotContainer.style.opacity = 0; // Hide current image
+                setTimeout(() => {
+                    mascot.src = `image/intro Mascot (C-01 to C-10)/mascot${currentImage}.png`;
+
+                    // Check if it's 11th or 14th mascot
+                    if (currentImage === 11 || currentImage === 14) {
+                        mascotContainer.classList.remove('left-bottom');
+                        mascotContainer.classList.add('center');
+                    } else {
+                        mascotContainer.classList.remove('center');
+                        mascotContainer.classList.add('left-bottom');
+                    }
+
+                    mascotContainer.style.opacity = 1; // Fade in next image
+                    currentImage++;
+                }, 300); // Wait for fade-out before changing image
+            } else {
+                nextButton.style.display = 'block'; // Show next button
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                showNextImage();
+            }
+        });
+
+        function nextPage() {
+            window.location.href = "next-page.html"; // Change to your next page
+        }
+
+        // Load first mascot image
+        showNextImage();
+    </script>
+
+</body>
+</html>
