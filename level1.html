@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Image with Clickable Logo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('digital-art-old-map-with-terrain-locations (1).jpg'); /* Background Image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            animation: fadeIn 1.5s ease-in-out; /* Smooth fade-in effect */
+        }
+
+        /* First Logo */
+        .logo1 {
+            position: absolute;
+            top: 22%; /* Adjust vertical position */
+            left: 81%; /* Adjust horizontal position */
+            width: 80px; /* Adjust logo size */
+            height: auto;
+            cursor: pointer; /* Show hand cursor on hover */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Glow and Zoom effect on hover */
+        .logo1:hover {
+            transform: scale(1.2); /* Zoom in the logo */
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.6); /* Glow effect */
+        }
+
+        /* Smooth Fade-in Effect */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clickable Logo with Hover Effect -->
+    <a href="nextpage.html" target="_blank">
+        <img src="start img.png" class="logo1">
+    </a>
+</body>
+</html>
