@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Chase</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background.jpg') no-repeat center center/cover;
+        }
+        .container {
+            text-align: center;
+        }
+        .btn {
+            display: block;
+            width: 200px;
+            height: 80px;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="play.png" alt="Play" class="btn" onclick="playGame()">
+        <img src="quit.png" alt="Quit" class="btn" onclick="quitGame()">
+    </div>
+
+    <script>
+        function playGame() {
+            window.location.href = 'game.html';
+        }
+        function quitGame() {
+            window.close();
+        }
+    </script>
+</body>
+</html>
