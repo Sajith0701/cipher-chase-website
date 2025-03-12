@@ -24,13 +24,14 @@
             background: url(image/digital-art-old-map-with-terrain-locations\ \(1\).jpg) no-repeat center center/cover;
             filter: blur(8px);
             z-index: -1;
+            transition: filter 1s ease-in-out;
         }
 
         .mascot-container {
             position: absolute;
-            width: 450px; /* Increased mascot size */
+            width: 450px;
             height: 450px;
-            transform: scale(1.5); /* Bigger size */
+            transform: scale(1.5);
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
@@ -46,7 +47,7 @@
             bottom: 2%;
         }
 
-        /* Special positioning for 11th and 14th mascots */
+        /* Special positioning for certain mascots */
         .center {
             left: 50%;
             top: 50%;
@@ -55,14 +56,14 @@
 
         .next-btn {
             position: absolute;
-            right: 5%;
-            bottom: 5%;
+            right: 25%;
+            top: 26%;
             width: 100px;
             height: 100px;
             cursor: pointer;
             opacity: 0;
-            transform: scale(0.5);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: scale(4);
+            transition: opacity 4s ease-in-out, transform 4s ease-in-out;
         }
 
         .next-btn.show {
@@ -73,7 +74,7 @@
 </head>
 <body>
     
-    <div class="background"></div> <!-- Blurred Background -->
+    <div id="background" class="background"></div> <!-- Blurred Background -->
 
     <div id="mascotContainer" class="mascot-container left-bottom">
         <img id="mascot" class="mascot" src="" alt="Mascot">
@@ -87,6 +88,8 @@
         const mascot = document.getElementById('mascot');
         const mascotContainer = document.getElementById('mascotContainer');
         const nextButton = document.getElementById('nextButton');
+        const background = document.getElementById('background');
+        let lastMascotShown = false;
 
         function showNextImage() {
             if (currentImage <= totalImages) {
@@ -94,7 +97,6 @@
                 setTimeout(() => {
                     mascot.src = `image/intro Mascot (C-01 to C-10)/mascot${currentImage}.png`;
 
-                    // Check if it's 11th or 14th mascot
                     if (currentImage === 11 || currentImage === 14) {
                         mascotContainer.classList.remove('left-bottom');
                         mascotContainer.classList.add('center');
@@ -107,22 +109,28 @@
                     currentImage++;
 
                     if (currentImage > totalImages) {
-                        setTimeout(() => {
-                            nextButton.classList.add('show'); // Show next button with transition
-                        }, 500);
+                        lastMascotShown = true;
                     }
-                }, 300); // Wait for fade-out before changing image
+                }, 300);
             }
         }
 
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
-                showNextImage();
+                if (lastMascotShown) {
+                    mascotContainer.style.opacity = 0; // Hide the last mascot
+                    background.style.filter = "none"; // Remove blur effect from background
+                    setTimeout(() => {
+                        nextButton.classList.add('show'); // Show next button with transition
+                    }, 500);
+                } else {
+                    showNextImage();
+                }
             }
         });
 
         function nextPage() {
-            window.location.href = "level1.html"; // Change to your next page
+            window.location.href = "level1.html"; // Redirect to the next level
         }
 
         // Load first mascot image

@@ -28,18 +28,23 @@
             display: none;  /* Initially hidden */
         }
 
-        /* Button styles */
         .next-btn {
             position: absolute;
-            top: 38%;
-            right: 23%;
-            width: 70px;
-            height: auto;
+            right: 25%;
+            top: 26%;
+            width: 100px;
+            height: 100px;
             cursor: pointer;
-            display: none;  /* Initially hidden */
-            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            transform: scale(4);
+            transition: opacity 4s ease-in-out, transform 4s ease-in-out;
         }
 
+        .next-btn.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+     
     </style>
 </head>
 <body>
@@ -48,6 +53,7 @@
     <div class="mascot-container">
         <img id="mascot1" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-16.png">
         <img id="mascot2" class="mascot" src="image/Level-1 Mascot (C-11 to C-20)/C-17.png">
+        
     </div>
 
     <!-- Next Button -->
@@ -67,11 +73,8 @@
                 mascots[currentMascot].style.display = "block"; // Show current mascot
                 currentMascot++;
             } else {
-                // When last mascot is shown, display the button
-                nextButton.style.display = "block";
-                setTimeout(() => {
-                    nextButton.style.opacity = 1;
-                }, 300);
+                // When last mascot disappears, show the button with transition
+                nextButton.classList.add("show");
             }
         }
 
@@ -82,7 +85,7 @@
         });
 
         function nextPage() {
-            window.location.href = "level1.html"; // nithin's code 
+            window.location.href = "level1.html"; // Redirect to next page
         }
 
         // Show first mascot on load

@@ -3,50 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Background Image with Clickable Logo</title>
+    <title>Mascot Transition</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('digital-art-old-map-with-terrain-locations (1).jpg'); /* Background Image */
-            background-size: cover;
-            background-position: center;
+            background: url("image/digital-art-old-map-with-terrain-locations\ \(1\).jpg") no-repeat center center/cover;
             height: 100vh;
-            animation: fadeIn 1.5s ease-in-out; /* Smooth fade-in effect */
+            overflow: hidden;
+            position: relative;
         }
 
-        /* First Logo */
-        .logo1 {
+        /* Mascot container - Bottom Left */
+        .mascot-container {
             position: absolute;
-            top: 45%; /* Adjust vertical position */
-            left: 40%; /* Adjust horizontal position */
-            width: 80px; /* Adjust logo size */
+            bottom: 0%;
+            left: 5%;
+            max-width: 30%; /* Prevents overflow */
+        }
+
+        .mascot {
+            width: 100%;  /* Makes it responsive within the container */
             height: auto;
-            cursor: pointer; /* Show hand cursor on hover */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            display: none;  /* Initially hidden */
         }
 
-        /* Glow and Zoom effect on hover */
-        .logo1:hover {
-            transform: scale(1.2); /* Zoom in the logo */
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.6); /* Glow effect */
+        .next-btn {
+            position: absolute;
+            right: 50%;
+            top: 40%;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(4);
+            transition: opacity 4s ease-in-out, transform 4s ease-in-out;
         }
 
-        /* Smooth Fade-in Effect */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .next-btn.show {
+            opacity: 1;
+            transform: scale(1);
         }
+     
     </style>
 </head>
 <body>
-    <!-- Clickable Logo with Hover Effect -->
-    <a href="nextpage.html" target="_blank">
-        <img src="start img.png" class="logo1">
-    </a>
+
+    <!-- Mascot container -->
+    <div class="mascot-container">
+        <img id="mascot1" class="mascot" src="image/Level-3 Mascot (C-31 to C-41)/C-32.png">
+    </div>
+
+    <!-- Next Button -->
+    <img id="nextButton" class="next-btn" src="image/start img.png" onclick="nextPage()">
+
+    <script>
+        let mascots = document.querySelectorAll('.mascot');
+        let nextButton = document.getElementById('nextButton');
+        let currentMascot = 0;
+
+        function showNextMascot() {
+            if (currentMascot > 0) {
+                mascots[currentMascot - 1].style.display = "none"; // Hide previous mascot
+            }
+
+            if (currentMascot < mascots.length) {
+                mascots[currentMascot].style.display = "block"; // Show current mascot
+                currentMascot++;
+            } else {
+                // When last mascot disappears, show the button with transition
+                nextButton.classList.add("show");
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                showNextMascot();
+            }
+        });
+
+        function nextPage() {
+            window.location.href = "level1.html"; // Redirect to next page
+        }
+
+        // Show first mascot on load
+        window.onload = function () {
+            mascots[0].style.display = "block";
+        };
+    </script>
+
 </body>
 </html>
