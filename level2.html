@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Page</title>
+    <title>Cipher Chase Level-2</title>
     <style>
         body {
             margin: 0;
@@ -70,6 +70,24 @@
             opacity: 1;
             transform: scale(1);
         }
+
+        /* Music Button */
+        .music-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .music-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
     </style>
 </head>
 <body>
@@ -82,6 +100,12 @@
 
     <img id="nextButton" class="next-btn" src="image/start img.png" alt="Next" onclick="nextPage()">
 
+    <!-- Background Music -->
+    <audio id="bgMusic" src="audio/level 2 bgm 10 min.mp3" loop></audio>
+
+    <!-- Music Play/Pause Button -->
+    <button id="musicButton" class="music-btn">🎵 Play Music</button>
+
     <script>
         let currentImage = 18;
         const totalImages = 23;
@@ -89,6 +113,8 @@
         const mascotContainer = document.getElementById('mascotContainer');
         const nextButton = document.getElementById('nextButton');
         const background = document.getElementById('background');
+        const bgMusic = document.getElementById("bgMusic");
+        const musicButton = document.getElementById("musicButton");
         let lastMascotShown = false;
 
         function showNextImage() {
@@ -115,8 +141,15 @@
             }
         }
 
+        // Start music automatically when the page loads
+        window.addEventListener("DOMContentLoaded", function() {
+            bgMusic.volume = 0.5; // Set volume to 50% (optional)
+            bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
+        });
+
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
+                // Spacebar moves mascot but does not affect music
                 if (lastMascotShown) {
                     mascotContainer.style.opacity = 0; // Hide the last mascot
                     background.style.filter = "none"; // Remove blur effect from background
@@ -129,8 +162,20 @@
             }
         });
 
+        // Music Play/Pause Button
+        musicButton.addEventListener("click", function() {
+            if (bgMusic.paused) {
+                bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
+                musicButton.textContent = "🔊 Music On";
+            } else {
+                bgMusic.pause();
+                musicButton.textContent = "🎵 Play Music";
+            }
+        });
+
         function nextPage() {
-            window.location.href = "level1.html"; // Redirect to the next level
+            bgMusic.pause(); // Stop music when going to the next page
+            window.location.href = "level3.html";
         }
 
         // Load first mascot image
